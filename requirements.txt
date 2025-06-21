@@ -2,9 +2,8 @@ pydantic>=2.0
 pydantic-ai
 python-docx
 PyMuPDF
-# nltk  # NLTK is commented out as we are using regex for sentence splitting for now
-# groq
 google-generativeai
 redis
 python-dotenv
 streamlit
+nest_asyncio

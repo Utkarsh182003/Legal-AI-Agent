@@ -1,5 +1,3 @@
-# agents/compliance_analyzer.py (UPDATED - Fixed ExtractedEntities Import)
-
 from pydantic_ai import Agent
 from pydantic import BaseModel, ValidationError, Field
 from typing import List, Dict, Any, Optional
@@ -7,11 +5,10 @@ import json
 
 from models.document_models import (
     DocumentAnalysisResult, ComplianceRule, ComplianceFinding, DocumentContent,
-    ExtractedEntities # FIXED: Import ExtractedEntities here
+    ExtractedEntities 
 )
 from utils.redis_cache import RedisCache
 
-# This is the Pydantic model for the LLM's output when assessing a single rule.
 class RuleAssessmentOutput(BaseModel):
     """
     Structured output for the LLM's assessment of a single compliance rule.
@@ -31,7 +28,7 @@ class ComplianceAnalyzerAgent(Agent[List[ComplianceFinding]]):
     """
     def __init__(self, model: Any, cache: Optional[RedisCache] = None):
         super().__init__(model=model)
-        self.model = model # The LLM model (e.g., GoogleModel)
+        self.model = model 
         self.cache = cache
         self.compliance_rules: List[ComplianceRule] = self._load_compliance_rules()
 
@@ -136,8 +133,6 @@ class ComplianceAnalyzerAgent(Agent[List[ComplianceFinding]]):
         findings: List[ComplianceFinding] = []
 
         document_full_text = analysis_result.full_text_content
-        # Recreate ExtractedEntities to ensure proper type, especially for caching and passing to LLM
-        # This re-instantiation helps ensure consistency, although Pydantic usually handles this.
         extracted_entities = ExtractedEntities(
             document_type=analysis_result.metadata.document_type,
             document_title=analysis_result.metadata.title,

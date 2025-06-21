@@ -1,5 +1,3 @@
-# models/legal_clauses.py
-
 from pydantic import BaseModel, Field
 from typing import List, Optional, Literal
 
@@ -89,5 +87,3 @@ class TerminationClause(BaseModel):
         default_factory=list, description="Obligations that survive termination (e.g., 'confidentiality', 'indemnification')."
     )
 
-# Add more clause types as needed
-# e.g., WarrantyClause, LimitationOfLiabilityClause, IntellectualPropertyClause, DisputeResolutionClause

@@ -1,5 +1,3 @@
-# agents/rag_agent.py (UPDATED - Enhanced Context Retrieval and Prompt for Better Accuracy)
-
 from pydantic_ai import Agent
 from pydantic import BaseModel, ValidationError
 from typing import List, Dict, Any, Optional
@@ -42,7 +40,6 @@ class RAGAgent(Agent[RAGResponse]):
         source_node_ids_for_response = [] # Node IDs pulled
 
         # 1. Provide the full DocumentAnalysisResult as JSON
-        # This is the most robust way to give the LLM structured access
         full_analysis_json = self.document_analysis_result.model_dump_json(indent=2)
         context_parts.append(f"--- Full Document Analysis Result (JSON) ---\n{full_analysis_json}")
 
@@ -73,7 +70,7 @@ class RAGAgent(Agent[RAGResponse]):
             for node in self.document_analysis_result.knowledge_graph.nodes:
                 if query_lower in node.name.lower() or any(query_lower in str(v).lower() for v in node.attributes.values()):
                     kg_nodes_info.append(node.model_dump_json(indent=2))
-                    source_node_ids_for_response.append(node.id) # Capture node ID for response
+                    source_node_ids_for_response.append(node.id) # Captures node ID for response
 
             for edge in self.document_analysis_result.knowledge_graph.edges:
                 if query_lower in edge.type.lower() or (edge.source_id in source_node_ids_for_response) or (edge.target_id in source_node_ids_for_response):

@@ -1,5 +1,3 @@
-# agents/information_extractor.py (UPDATED - Refined Prompt for Monetary Value Reason)
-
 from pydantic_ai import Agent
 from pydantic import BaseModel, ValidationError
 from typing import Type, List, Dict, Any, Optional
@@ -61,7 +59,7 @@ class InformationExtractionAgent(Agent[ExtractedEntities]):
             f"You are an expert legal document analyst. Your task is to accurately extract "
             f"all structured information from the following legal document snippet based on the "
             f"provided Pydantic schema for ExtractedEntities. "
-            f"Pay close attention to names, roles, dates, monetary values (including the *specific reason* for the amount, such as 'rent', 'fine for breach of conduct', etc.), " # Emphasize reason
+            f"Pay close attention to names, roles, dates, monetary values (including the *specific reason* for the amount, such as 'rent', 'fine for breach of conduct', etc.), " 
             f"defined terms, and the specific details of clauses. "
             f"Also, provide a concise overall summary of the document in the 'analysis_summary' field. "
             f"Crucially, identify the single most important 'effective date' or 'document date' "

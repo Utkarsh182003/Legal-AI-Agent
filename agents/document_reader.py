@@ -1,8 +1,6 @@
-# agents/document_reader.py (UPDATED for Phase 2)
-
 import os
-import fitz # PyMuPDF
-from docx import Document # python-docx
+import fitz 
+from docx import Document
 from pydantic_ai import Agent
 from typing import List
 from pydantic import ValidationError
@@ -48,7 +46,7 @@ class DocumentReaderAgent(Agent):
                 doc = fitz.open(file_path)
                 for page_num in range(doc.page_count):
                     page = doc.load_page(page_num)
-                    text_content += page.get_text("text") # "text" for plain text
+                    text_content += page.get_text("text") 
                 doc.close()
             elif file_type == 'docx':
                 doc = Document(file_path)
@@ -85,6 +83,6 @@ class DocumentReaderAgent(Agent):
             text_content=cleaned_text,
             file_name=file_name,
             file_type=file_type,
-            paragraphs=structured_paragraphs # Now includes structured paragraphs
+            paragraphs=structured_paragraphs 
         )
 

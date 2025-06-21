@@ -1,5 +1,3 @@
-# models/document_models.py (UPDATED - Added RAGResponse Model)
-
 from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Literal, Any
 from datetime import date
@@ -20,7 +18,6 @@ class Sentence(BaseModel):
     """
     text: str = Field(description="The text content of the sentence.")
     index: int = Field(description="The 0-based index of the sentence within its paragraph.")
-    # Consider adding 'paragraph_index' or 'section_id' for more context
 
 class Paragraph(BaseModel):
     """

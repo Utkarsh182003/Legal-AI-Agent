@@ -1,11 +1,9 @@
-# utils/redis_cache.py (UPDATED for Redis Cloud .env loading and fixed date serialization)
-
 import redis
 import json
 from typing import Any, Optional
 import os
-from dotenv import load_dotenv # Import load_dotenv
-from datetime import date # Import date
+from dotenv import load_dotenv 
+from datetime import date 
 
 # Custom JSON encoder to handle datetime.date objects
 class CustomJSONEncoder(json.JSONEncoder):
@@ -21,7 +19,6 @@ class RedisCache:
     Uses a custom JSON encoder for date serialization.
     """
     def __init__(self):
-        # Load .env variables (if not already loaded by main.py)
         load_dotenv()
 
         host = os.getenv("REDIS_HOST", "localhost")
@@ -63,7 +60,6 @@ class RedisCache:
         if not self.r:
             return False
         try:
-            # Use the custom JSON encoder here
             serialized_value = json.dumps(value, cls=CustomJSONEncoder)
             self.r.set(key, serialized_value, ex=ex)
             return True
@@ -84,7 +80,6 @@ class RedisCache:
         try:
             serialized_value = self.r.get(key)
             if serialized_value:
-                # No need for custom decoder here, json.loads handles ISO 8601 strings to strings
                 return json.loads(serialized_value)
             return None
         except Exception as e:
@@ -118,9 +113,8 @@ if __name__ == "__main__":
         retrieved_value = cache.get(test_key)
         print(f"Retrieved: {retrieved_value}")
 
-        # Note: The date will be retrieved as a string, not a date object.
-        # This is expected for JSON serialization/deserialization.
-        # You would re-parse it to a date object if needed after retrieval.
+        # Check if the retrieved value matches the expected structure
+        # and contains today's date in ISO format
         if isinstance(retrieved_value, dict) and retrieved_value.get('today') == date.today().isoformat():
             print("Cache set and get with date successful!")
         else:
@@ -130,5 +124,7 @@ if __name__ == "__main__":
         cache.delete(test_key)
     else:
         print("Redis cache not available, skipping test.")
+
+        
 # This code is a simple Redis cache implementation that loads connection details from environment variables,
 # uses a custom JSON encoder to handle date serialization, and provides basic set, get, and delete methods.

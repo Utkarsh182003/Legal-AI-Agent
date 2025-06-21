@@ -1,5 +1,3 @@
-# agents/knowledge_graph_agent.py (UPDATED - Fixed Document Node Attributes)
-
 from pydantic_ai import Agent
 from pydantic import ValidationError
 from typing import List, Dict, Any, Optional
@@ -8,7 +6,7 @@ import re # For sanitizing IDs
 
 from models.document_models import (
     DocumentAnalysisResult, Node, Edge, KnowledgeGraph,
-    Party, DateClause, MonetaryValue, DefinedTerm, ExtractedEntities # Added ExtractedEntities
+    Party, DateClause, MonetaryValue, DefinedTerm, ExtractedEntities
 )
 from utils.redis_cache import RedisCache
 
@@ -18,7 +16,7 @@ class KnowledgeGraphAgent(Agent[KnowledgeGraph]):
     structured information in a DocumentAnalysisResult.
     """
     def __init__(self, model: Any, cache: Optional[RedisCache] = None):
-        super().__init__(model=model) # LLM might be used for complex relationship extraction later
+        super().__init__(model=model) 
         self.cache = cache
         self.nodes: List[Node] = []
         self.edges: List[Edge] = []
@@ -27,7 +25,7 @@ class KnowledgeGraphAgent(Agent[KnowledgeGraph]):
     def _sanitize_id(self, text: str) -> str:
         """Sanitizes text to create a valid ID."""
         text = text.strip().replace(" ", "_").replace(".", "").replace(",", "")
-        return re.sub(r'[^\w-]', '', text)[:50] # Remove non-alphanumeric, limit length
+        return re.sub(r'[^\w-]', '', text)[:50] 
 
     def _add_node(self, node_id: str, node_type: str, name: str, attributes: Dict[str, Any] = None) -> Node:
         """Adds a node if it doesn't already exist and returns it."""
@@ -43,7 +41,6 @@ class KnowledgeGraphAgent(Agent[KnowledgeGraph]):
             for existing_node in self.nodes:
                 if existing_node.id == node_id:
                     return existing_node
-            # This should ideally not happen if id_map is consistent
             raise ValueError(f"Node {node_id} found in id_map but not in nodes list.")
 
 
@@ -74,7 +71,6 @@ class KnowledgeGraphAgent(Agent[KnowledgeGraph]):
         # Add the main document node
         self._add_node(doc_id, "Document", doc_title, {
             "file_name": doc_name,
-            # Removed "file_type": analysis_result.metadata.file_type as it doesn't exist there
             "document_type": doc_type, # Add document_type as an attribute of the document node
             "analysis_summary": analysis_result.analysis_summary
         })
