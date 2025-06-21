@@ -1,5 +1,11 @@
 # ⚖️ Legal AI Agent
 
+![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
+![Streamlit](https://img.shields.io/badge/streamlit-%E2%9C%94%EF%B8%8F-brightgreen)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
+![Status](https://img.shields.io/badge/status-active-success)
+
 A powerful AI-powered tool for automated legal document analysis, compliance checking, and Retrieval Augmented Generation (RAG) question answering. Upload legal documents (DOCX, PDF, TXT), extract structured information, identify compliance risks, visualize knowledge graphs, and interactively ask questions—all in your browser.
 
 ## Features
