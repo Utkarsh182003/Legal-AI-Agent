@@ -5,11 +5,10 @@ import os
 from dotenv import load_dotenv 
 from datetime import date 
 
-# Custom JSON encoder to handle datetime.date objects
 class CustomJSONEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, date):
-            return obj.isoformat() # Convert date to ISO 8601 string
+            return obj.isoformat() 
         return json.JSONEncoder.default(self, obj)
 
 class RedisCache:

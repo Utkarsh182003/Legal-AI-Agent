@@ -11,7 +11,7 @@ from agents.document_reader import DocumentReaderAgent
 from agents.information_extractor import InformationExtractionAgent
 from agents.compliance_analyzer import ComplianceAnalyzerAgent
 from agents.knowledge_graph_agent import KnowledgeGraphAgent
-from agents.rag_agent import RAGAgent # RAGAgent class still imported
+from agents.rag_agent import RAGAgent 
 from models.document_models import DocumentInput, DocumentAnalysisResult, DocumentContent, Paragraph, Sentence, ComplianceFinding, Node, Edge, KnowledgeGraph, RAGResponse
 from utils.redis_cache import RedisCache
 

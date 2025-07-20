@@ -4,7 +4,7 @@ from docx import Document
 from pydantic_ai import Agent
 from typing import List
 from pydantic import ValidationError
-import uuid # For generating unique IDs
+import uuid
 
 from models.document_models import DocumentInput, DocumentContent, Paragraph, Sentence
 from utils.text_processing import clean_text, split_into_sentences, split_into_paragraphs

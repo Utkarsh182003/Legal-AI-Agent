@@ -20,7 +20,7 @@ class KnowledgeGraphAgent(Agent[KnowledgeGraph]):
         self.cache = cache
         self.nodes: List[Node] = []
         self.edges: List[Edge] = []
-        self.id_map: Dict[str, str] = {} # To map entity names/values to unique IDs
+        self.id_map: Dict[str, str] = {}
 
     def _sanitize_id(self, text: str) -> str:
         """Sanitizes text to create a valid ID."""
@@ -29,15 +29,13 @@ class KnowledgeGraphAgent(Agent[KnowledgeGraph]):
 
     def _add_node(self, node_id: str, node_type: str, name: str, attributes: Dict[str, Any] = None) -> Node:
         """Adds a node if it doesn't already exist and returns it."""
-        if node_id not in self.id_map:
-            # Ensure attributes is a dictionary, even if None is passed
+        if node_id not in self.id_map:           
             final_attributes = attributes if attributes is not None else {}
             node = Node(id=node_id, type=node_type, name=name, attributes=final_attributes)
             self.nodes.append(node)
-            self.id_map[node_id] = node_id # Mark as added
+            self.id_map[node_id] = node_id 
             return node
         else:
-            # If node already exists, find and return it (simplified for demo)
             for existing_node in self.nodes:
                 if existing_node.id == node_id:
                     return existing_node
@@ -59,7 +57,7 @@ class KnowledgeGraphAgent(Agent[KnowledgeGraph]):
         Constructs a Knowledge Graph from the DocumentAnalysisResult.
         """
         print(f"Starting Knowledge Graph construction for {analysis_result.file_name}...")
-        self.nodes = [] # Reset for each run
+        self.nodes = []
         self.edges = []
         self.id_map = {}
 

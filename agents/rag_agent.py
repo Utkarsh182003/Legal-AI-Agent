@@ -134,9 +134,6 @@ class RAGAgent(Agent[RAGResponse]):
         try:
             rag_result = await super().run(llm_prompt)
             final_rag_response = rag_result.output
-            
-            # Ensure relevant_snippets and source_nodes from retrieval are used
-            # as LLM might summarize or hallucinate these
             final_rag_response.relevant_snippets = relevant_snippets
             final_rag_response.source_nodes = source_node_ids
             

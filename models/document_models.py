@@ -228,6 +228,3 @@ class DocumentAnalysisResult(BaseModel):
     knowledge_graph: Optional[KnowledgeGraph] = Field(
         None, description="A structured knowledge graph representing entities and relationships within the document."
     )
-    
-# Note: The DocumentAnalysisResult model can be extended with more fields as needed for specific use cases.
-# This model serves as the final output for the document analysis process, encapsulating all relevant information.

@@ -62,4 +62,4 @@ if __name__ == "__main__":
     paragraphs = split_into_paragraphs(cleaned)
     print("\nParagraphs:")
     for i, para in enumerate(paragraphs):
-        print(f"{i}: {para[:50]}...") # Print first 50 chars of each paragraph
+        print(f"{i}: {para[:50]}...")
